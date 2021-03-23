@@ -1,16 +1,29 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
+import { SharedModule } from './shared/shared.module';
 
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    ToastrModule.forRoot({
+      closeButton: true,
+      positionClass: 'toast-bottom-right',
+      extendedTimeOut: 3000,
+      progressBar: true,
+      progressAnimation: 'increasing',
+      tapToDismiss: false
+    }),
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
