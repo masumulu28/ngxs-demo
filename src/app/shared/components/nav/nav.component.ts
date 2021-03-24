@@ -11,7 +11,9 @@ import { map, shareReplay } from 'rxjs/operators';
 export class NavComponent {
   //#region fields
   toolTitle: string = 'E-Commarce';
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+  isHandset$: Observable<boolean> = this
+    .breakpointObserver
+    .observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
       shareReplay()
