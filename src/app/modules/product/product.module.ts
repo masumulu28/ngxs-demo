@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductsRoutingModule } from './products-routing.module';
+import { ProductRoutingModule } from './product-routing.module';
 
-import { ProductComponent } from './product/product.component';
+import { ProductComponent } from './product.component';
 import { ProductListComponent } from './product-list/product-list.component';
 
 const Components = [
@@ -14,8 +14,8 @@ const Components = [
   declarations: [Components],
   imports: [
     CommonModule,
-    ProductsRoutingModule
+    ProductRoutingModule
   ],
   exports: [Components]
 })
-export class ProductsModule { }
+export class ProductModule { }

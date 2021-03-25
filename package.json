@@ -23,6 +23,8 @@
     "@angular/platform-browser": "~11.2.6",
     "@angular/platform-browser-dynamic": "~11.2.6",
     "@angular/router": "~11.2.6",
+    "@ngxs/logger-plugin": "^3.6.2-dev.master-eaa5d86",
+    "@ngxs/store": "^3.6.2-dev.master-eaa5d86",
     "concurrently": "^6.0.0",
     "ngx-toastr": "^13.2.1",
     "rxjs": "~6.6.0",
