@@ -1,11 +1,18 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+//#region  NGXS
 import { NgxsModule } from '@ngxs/store';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+
+import { AppState } from './shared/states/app.state';
+//#endregion
+
 
 import { ToastrModule } from 'ngx-toastr';
 import { MaterialModule } from './modules/material/material.module';
@@ -23,13 +30,17 @@ import { environment } from 'src/environments/environment';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    NgxsModule.forRoot([], {
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    NgxsModule.forRoot([
+      AppState
+    ], {
       developmentMode: !environment.production
     }),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
-    HttpClientModule,
-    AppRoutingModule,
     ToastrModule.forRoot({
       closeButton: true,
       positionClass: 'toast-bottom-right',

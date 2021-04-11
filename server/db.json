@@ -32,6 +32,13 @@
             "quantity": 10,
             "imageUrl": "https://file.casper.com.tr/series/38/1607695246_excalibur-g770-1-2.png",
             "id": 3
+        },
+        {
+            "name": "Excalibur G770",
+            "price": 9520,
+            "quantity": 10,
+            "imageUrl": "https://file.casper.com.tr/series/38/1607695246_excalibur-g770-1-2.png",
+            "id": 4
         }
     ]
 }
