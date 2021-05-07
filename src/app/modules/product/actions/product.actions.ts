@@ -23,3 +23,7 @@ export class DeleteProduct {
   static readonly type = '[Product] Delete Product';
   constructor(public payload: number) { }
 }
+
+export class ClearProduct {
+  static readonly type = '[Product] Clear Product';
+}

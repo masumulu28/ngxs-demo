@@ -1,0 +1,18 @@
+<div class="mat-dialog-title">
+    <mat-toolbar class="mat-elevation-z6" [color]="color" style="height: 3rem;">
+        <h2>{{title}}</h2>
+        <span class="spacer"></span>
+        <button mat-icon-button mat-dialog-close aria-label="Close Dialog">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-toolbar>
+</div>
+
+<mat-dialog-content class="mat-typography">
+    <app-product-edit></app-product-edit>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <!-- <button mat-button mat-dialog-close>Cancel</button> -->
+    <button mat-button mat-raised-button [mat-dialog-close]="true" [color]="color" cdkFocusInitial>Save</button>
+</mat-dialog-actions>

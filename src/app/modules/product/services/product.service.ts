@@ -14,11 +14,11 @@ import { Store } from '@ngxs/store';
 })
 export class ProductService {
   //#region Fields
-  private baseUrl: string = `${environment.apiUrl}products`;
+  private readonly baseUrl: string = `${environment.apiUrl}products`;
   //#endregion
 
   //#region Utilities
-  handleError(err: any): Observable<any> {
+  private handleError(err: any): Observable<any> {
     // this.store.dispatch(new RestOccurError(err));
     return throwError(err);
   }

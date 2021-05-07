@@ -11,7 +11,7 @@ const defaults: AppStateModel = {
 
 @State<AppStateModel>({
     name: 'app',
-    defaults //Names are matching with local variable, so we don't need to use lie 'defaults:defaults'
+    defaults //Names are matching with local variable, so we don't need to use like 'defaults:defaults'
 })
 @Injectable()
 export class AppState {
