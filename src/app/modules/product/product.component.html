@@ -1,4 +1,22 @@
 <div class="product-container">
     <!-- <app-product-add></app-product-add> -->
+    <mat-accordion class="example-headers-align" multi>
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    Product Add
+                </mat-panel-title>
+                <mat-panel-description>
+                    <!-- Add an product to system -->
+                    <span class="spacer"></span>
+                    <mat-icon>add_circle</mat-icon>
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <app-product-add [showTitle]="false"></app-product-add>
+
+        </mat-expansion-panel>
+    </mat-accordion>
+    <hr>
     <app-product-list></app-product-list>
 </div>

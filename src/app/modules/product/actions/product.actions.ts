@@ -24,6 +24,11 @@ export class DeleteProduct {
   constructor(public payload: number) { }
 }
 
+export class ProductOccurError {
+  static readonly type = '[Product Service] Handle Error';
+  constructor(public payload: any) { }
+}
+
 export class ClearProduct {
   static readonly type = '[Product] Clear Product';
 }

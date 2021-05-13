@@ -12,7 +12,6 @@ import { ProductComponent } from './product.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductDetailComponent } from './components/product-detail/product-detail.component';
 import { ProductAddComponent } from './components/product-add/product-add.component';
-import { ProductEditComponent } from './components/product-edit/product-edit.component';
 import { ProductEditDialogComponent } from './components/product-edit-dialog/product-edit-dialog.component';
 
 
@@ -21,7 +20,6 @@ const Components = [
   ProductListComponent,
   ProductDetailComponent,
   ProductAddComponent,
-  ProductEditComponent,
   ProductEditDialogComponent
 ];
 

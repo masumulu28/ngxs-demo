@@ -13,7 +13,6 @@ import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { AppState } from './shared/states/app.state';
 //#endregion
 
-
 import { ToastrModule } from 'ngx-toastr';
 import { MaterialModule } from './modules/material/material.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -55,4 +54,4 @@ import { environment } from 'src/environments/environment';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }//test
+export class AppModule { }

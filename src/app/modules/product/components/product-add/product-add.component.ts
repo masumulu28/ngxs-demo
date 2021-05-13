@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs';
+
 import { Product } from '../../models/product';
+
 import { Store } from '@ngxs/store';
 import { AddProduct } from '../../actions/product.actions';
 
@@ -9,9 +12,11 @@ import { AddProduct } from '../../actions/product.actions';
   templateUrl: './product-add.component.html',
   styleUrls: ['./product-add.component.scss']
 })
-export class ProductAddComponent implements OnInit {
-  //#region 
+export class ProductAddComponent implements OnInit, OnDestroy {
+  //#region Fields
+  subscription: Subscription;
   productForm: FormGroup;
+  @Input() showTitle: boolean = true;
   //#endregion
 
   //#region Utilities
@@ -33,13 +38,19 @@ export class ProductAddComponent implements OnInit {
   ) { }
   //#endregion
 
-  //#region  Methods
+  //#region Methods
   ngOnInit(): void {
     this.buildForm();
   }
 
-  addProduct(): void {
-    this.store.dispatch(new AddProduct(this.productForm.value as Product));
+  addProductOnClick(): void {
+    this.subscription = this.store
+      .dispatch(new AddProduct(this.productForm.value as Product))
+      .subscribe(() => this.productForm.reset());
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
   //#endregion
 }

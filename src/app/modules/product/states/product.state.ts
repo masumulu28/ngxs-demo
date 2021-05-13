@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { EMPTY, Observable } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { Action, Selector, State, StateContext, StateToken } from '@ngxs/store';
 import { Product } from '../models/product';
@@ -11,13 +10,10 @@ import {
   UpdateProduct,
   DeleteProduct,
   ClearProduct,
+  ProductOccurError,
 } from '../actions/product.actions';
+import { ToastrService } from 'ngx-toastr';
 
-/*
-  https://github.com/abpframework/abp/tree/dev/npm/ng-packs/packages/core/src/lib => Klasörleme yapısını incele
-
-  https://medium.com/ngxs-stories/state-as-a-service-with-ngxs-%EF%B8%8F-97e7de8ec072 => Makaleyi oku
-*/
 export class ProductStateModel {
   public products: Product[];
   public product?: Product;
@@ -46,7 +42,8 @@ export class ProductState {
 
   //#region  Ctor
   constructor(
-    private productService: ProductService
+    private productService: ProductService,
+    private toastrService: ToastrService
   ) { }
   //#endregion
 
@@ -66,20 +63,24 @@ export class ProductState {
 
   @Action(GetProduct)
   loadProduct(ctx: StateContext<ProductStateModel>, { payload }: GetProduct) {
-    return this.productService.get(payload).pipe(
-      tap(product =>
-        ctx.patchState({
-          product
-        }),
-        catchError(() => EMPTY)
-      ),
-    );
+    const productFromState = ctx.getState().products.find(f => f.id === payload);
+
+    return productFromState
+      ? ctx.patchState({ product: productFromState })
+      : this.productService.get(payload).pipe(
+        tap(product =>
+          ctx.patchState({
+            product
+          })
+        ),
+      );
   }
 
   @Action(AddProduct)
   addProduct(ctx: StateContext<ProductStateModel>, { payload }: AddProduct) {
     return this.productService.add(payload).pipe(
       tap((product) => {
+        this.toastrService.success('Product added', 'Success');
         const state = ctx.getState();
         ctx.patchState({
           ...state,
@@ -93,10 +94,11 @@ export class ProductState {
   updateProduct(ctx: StateContext<ProductStateModel>, { payload }: UpdateProduct) {
     return this.productService.update(payload).pipe(
       tap((product) => {
+        this.toastrService.success('Product updated', 'Success');
         const state = ctx.getState();
         ctx.patchState({
           ...state,
-          products: [...state.products, product]
+          products: [...state.products.filter(f => f.id !== product.id), product]
         });
       })
     );
@@ -106,6 +108,7 @@ export class ProductState {
   deleteProduct(ctx: StateContext<ProductStateModel>, { payload }: DeleteProduct) {
     return this.productService.delete(payload).pipe(
       tap(() => {
+        this.toastrService.info('Product deleted', 'Information');
         const state = ctx.getState();
         ctx.patchState({
           ...state,
@@ -122,6 +125,16 @@ export class ProductState {
     ctx.setState({
       ...ctx.getState(),
       product: null
+    });
+  }
+
+  @Action(ProductOccurError)
+  productOccurError(ctx: StateContext<ProductStateModel>, { payload }: ProductOccurError) {
+    // console.log(payload)
+    this.toastrService.error(payload, 'Error')
+    ctx.setState({
+      ...ctx.getState(),
+      error: payload
     });
   }
   //#endregion
