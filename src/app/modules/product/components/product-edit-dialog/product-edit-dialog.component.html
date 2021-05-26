@@ -9,11 +9,11 @@
 </div>
 
 <mat-dialog-content class="mat-typography">
-    <mat-spinner *ngIf="!(product$ | async)" color="accent" style="margin: 0 auto;"></mat-spinner>
-    <form *ngIf="product$ | async" [formGroup]="productForm">
+    <mat-spinner *ngIf="!productForm" color="accent" style="margin: 0 auto;"></mat-spinner>
+    <form *ngIf="productForm" [formGroup]="productForm">
         <mat-form-field class="w-100" appearance="outline">
             <mat-label>Product Name</mat-label>
-            <input matInput formControlName="name" placeholder="Product Name">
+            <input matInput formControlName="name" placeholder="product name">
         </mat-form-field>
         <br>
 

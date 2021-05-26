@@ -2,10 +2,10 @@
     <mat-toolbar class="table-toolbar">
         <h2>Product List</h2>
         <span class="spacer"></span>
-        <button mat-icon-button aria-label="Edit Product" (click)="editOnClick()">
-            <mat-icon>{{!isAdd ? 'add' : 'close'}}</mat-icon>
+        <button mat-icon-button aria-label="Edit Product" (click)="editOnClick()" *ngIf="showAddButton">
+            <mat-icon>add</mat-icon>
         </button>
-        <button mat-icon-button aria-label="Edit Product">
+        <button mat-icon-button aria-label="Edit Product" (click)="refreshOnClick()">
             <mat-icon>refresh</mat-icon>
         </button>
     </mat-toolbar>

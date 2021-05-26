@@ -50,7 +50,7 @@ export class ProductAddComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
   //#endregion
 }

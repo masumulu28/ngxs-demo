@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
+
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -25,7 +26,7 @@ export class ProductListComponent implements OnInit, OnDestroy {
 
   @Select(ProductState.getProducts) products$: Observable<Product[]>;
   dataSource = new MatTableDataSource<Product>([]);
-  isAdd: boolean = false;
+  showAddButton: boolean = true;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   //#endregion
@@ -68,16 +69,16 @@ export class ProductListComponent implements OnInit, OnDestroy {
     this.dataSource.paginator = this.paginator;
   }
 
+  refreshOnClick = (): void => this.loadProducts()
+
   detailOnClick(id: number): void {
     this.store.dispatch(new GetProduct(id));
   }
 
   editOnClick(id: number = 0): void {
-    if (id < 1) this.isAdd = !this.isAdd;
-    else {
+    if (id > 0)
       this.store.dispatch(new GetProduct(id));
-      this.openDialog();
-    }
+    this.openDialog();
   }
 
   deleteOnClick(id: number): void {

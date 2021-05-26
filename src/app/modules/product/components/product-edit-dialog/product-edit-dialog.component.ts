@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 
 import { Select, Store } from '@ngxs/store';
 import { ProductState } from '../../states';
-import { UpdateProduct, ClearProduct } from '../../actions';
+import { UpdateProduct, ClearProduct, AddProduct } from '../../actions';
 
 import { Product } from '../../models/product';
 
@@ -29,13 +29,13 @@ export class ProductEditDialogComponent implements OnInit, OnDestroy {
   //#region Utilities
   private buildProductForm(): void {
     this.subscription = this.product$
-      .pipe(filter((product, index) => !!product)) //get product if is not null
+      //.pipe(filter((product, index) => !!product)) //get product if is not null
       .subscribe(product => {
         this.productForm = this.fb.group({
-          'id': product.id,
-          'name': product.name,
-          'quantity': product.quantity,
-          'price': product.price
+          'id': product?.id ?? 0,
+          'name': product?.name ?? '',
+          'quantity': product?.quantity ?? 0,
+          'price': product?.price ?? 0
         });
       });
   }
@@ -55,9 +55,10 @@ export class ProductEditDialogComponent implements OnInit, OnDestroy {
   }
 
   saveOnClick(): void {
+    const _product = this.productForm.value as Product;
     this.subscription.add(this
       .store
-      .dispatch(new UpdateProduct(this.productForm.value as Product))
+      .dispatch(_product.id > 0 ? new UpdateProduct(_product) : new AddProduct(_product))
       .subscribe(() => this.dialogRef.close()));
   }
 
